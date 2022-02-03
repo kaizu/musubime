@@ -1,4 +1,5 @@
 import csv
+import re
 
 
 def bigg_models(downloads, artifacts):
@@ -9,9 +10,9 @@ def bigg_models(downloads, artifacts):
         for row in reader:
             bigg_id, name, reaction_string, model_list, database_links, old_bigg_ids = row
             for xref in database_links.split(';'):
-                db_name, db_id = xref.split(':')
-                db_name, db_id = db_name.strip(), db_id.strip()
-                assert db_id.startswith('http://identifiers.org')
+                mobj = re.match('^\s*([^:]+)\s*:\s*(http://identifiers.org/\S+)', xref)
+                assert mobj is not None
+                db_name, db_id = mobj.group(1), mobj.group(2)
                 bigg_models_reactions.append((f"https://identifiers.org/bigg.reaction:{bigg_id}", db_id))
     
     with open(artifacts / "bigg_models_reactions.csv", "w") as f:
