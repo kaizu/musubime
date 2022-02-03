@@ -8,7 +8,11 @@ def bigg_models(downloads, artifacts):
         next(reader)
         for row in reader:
             bigg_id, name, reaction_string, model_list, database_links, old_bigg_ids = row
-            bigg_models_reactions.append((bigg_id, database_links))
+            for xref in database_links.split(';'):
+                db_name, db_id = xref.split(':')
+                db_name, db_id = db_name.strip(), db_id.strip()
+                assert db_id.startswith('http://identifiers.org')
+                bigg_models_reactions.append((f"https://identifiers.org/bigg.reaction:{bigg_id}", db_id))
     
     with open(artifacts / "bigg_models_reactions.csv", "w") as f:
         writer = csv.writer(f)
