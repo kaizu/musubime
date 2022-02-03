@@ -38,3 +38,4 @@ jobs:
         name: main_${{ github.sha }}
         path: |
           artifacts/*.txt
+          artifacts/*.csv
