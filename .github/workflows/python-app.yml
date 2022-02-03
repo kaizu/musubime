@@ -24,6 +24,11 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+    - name: Downloads
+      run: |
+        cd downloads
+        curl http://bigg.ucsd.edu/static/namespace/bigg_models_reactions.txt
+        curl http://bigg.ucsd.edu/static/namespace/bigg_models_metabolites.txt
     - name: Run
       run: |
         python main.py
