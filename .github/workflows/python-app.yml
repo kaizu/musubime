@@ -34,6 +34,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: main_${{ github.sha }}
+        retention-days: 1
         path: |
           artifacts/*.txt
           artifacts/*.csv
