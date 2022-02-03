@@ -27,8 +27,8 @@ jobs:
     - name: Downloads
       run: |
         cd downloads
-        curl http://bigg.ucsd.edu/static/namespace/bigg_models_reactions.txt
-        curl http://bigg.ucsd.edu/static/namespace/bigg_models_metabolites.txt
+        curl -O http://bigg.ucsd.edu/static/namespace/bigg_models_reactions.txt
+        curl -O http://bigg.ucsd.edu/static/namespace/bigg_models_metabolites.txt
     - name: Run
       run: |
         python main.py
